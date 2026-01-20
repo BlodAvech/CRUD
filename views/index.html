@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Blog</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<link href="/css/style.css">
+</head>
+<body>
+
+    <h1>Blog Posts</h1>
+    <button onclick="openModal('create')">Create New Post</button>
+    <div id="posts"></div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <h3 id="modalTitle">Post</h3>
+            <input type="hidden" id="postId">
+            <p>Title: <input type="text" id="title"></p>
+            <p>Body: <input type="text" id="body"></p>
+            <p>Author: <input type="text" id="author"></p>
+            <button onclick="savePost()">Save</button>
+            <button onclick="closeModal()">Cancel</button>
+        </div>
+    </div>
+</body>
+	<script src="/script.js"></script>
+</html>

@@ -2,27 +2,30 @@ require('dotenv').config()
 const mongoose = require('mongoose')
 const express = require('express')
 const app = express()
+const path = require('path');
 
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json()); 
 
 const DB_URI = process.env.DB_URI;
 
 app.get('/' , (req , res) => {
-	res.send("123");
+	res.sendFile(path.join(__dirname , 'views' , 'index.html'));
 })
 
 mongoose
-	.connect(DB_URI)
-	.then(() => {
-		console.log("Connected to DB")
-
-		app.listen(3000 , () => console.log('Server Is Running http://localhost:3000'))
-	})
-	.catch(() => console.log("Error"))
+    .connect(DB_URI)
+    .then(() => {
+        console.log("Connected to DB");
+        app.listen(3000, () => console.log('Server Is Running on http://localhost:3000'));
+    })
+    .catch((err) => {
+        console.error("Mongoose connection error:", err.message);
+    });
 
 const blockSchema = new mongoose.Schema({
-	title: { type: String , require: true },
-	body: { type: String , require: true },
+	title: { type: String , required: true },
+	body: { type: String , required: true },
 	author: { type: String , default:"Не указан"}},
 	{ timestamps: true});
 
@@ -34,7 +37,7 @@ app.post('/blogs', async (req, res) => {
         if (!title || !body) {
             return res.status(400).json({ message: "Title and Body are required" });
         }
-        const newPost = await Blog.create({ title, body, author });
+        const newPost = await Blog.create({title , body , author});
         res.status(201).json(newPost);
     } catch (error) {
         res.status(500).json({ message: error.message });
