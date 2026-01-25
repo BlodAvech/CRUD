@@ -60,7 +60,7 @@ $(document).ready(function() {
             $('#title').val(post.title);
             $('#body').val(post.body);
             $('#author').val(post.author);
-            $('#modal').show();
+            $('#modal').show();``
         });
 
         $(document).on('click', '.btnDelete', function() {
